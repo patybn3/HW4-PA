@@ -1,0 +1,180 @@
+/*
+Homework 3 GUI 1 - UML
+author: Patricia Antlitz
+date: 2024-06-01
+File: style.css
+
+Copyright (c) 2024 by Patricia Antlitz.
+
+Contains styles for index.html and table.html
+-- script.js also has some
+*/
+
+/* root is necessary in order to force the page's background color which was messed up bu the 
+bootstrap form*/
+:root body {
+    background-color: rgb(208, 233, 255);
+}
+
+/* This is the div that holds the initial form */
+.container {
+    padding-top: 30px;
+    font-weight: 600;
+    color: rgb(25, 37, 112);
+}  
+
+nav {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+/* image logo.png */
+#logo {
+    height: 160px;
+    width: 439px;
+}
+
+/* the container that holds the title image title.png */
+#titleBox {
+    text-align: center;
+}
+
+/* title.png */
+#title {
+    height: 55px;
+    width: auto;
+    margin-top: 13rem;
+}
+
+/* Bootstrap danger alert */
+#errorMessage {
+    position: absolute;
+    top: 160px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: auto;
+    z-index: 1;
+    opacity: 1;
+    transition: opscity 0.5s ease-out;
+}
+
+#errorMessage.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* "Enter Rage" */
+h3 {
+    padding-bottom: 20px;
+    text-decoration: underline;
+}
+
+/* submit button */
+.button {
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 100px;
+}
+
+footer {
+    background-color: rgb(236, 64, 122);
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
+
+/* text on footer */
+#copyright {
+    margin-left: 30px; 
+    color: antiquewhite;
+}
+
+#github {
+    color: cyan;
+}
+
+/* table.html */
+
+/* div that holds the table */
+#tableBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
+    margin: 0 30px;
+}
+
+/* will make sure the columns and rows will adjust based on the size of the content */
+#tableContent {
+    width: fit-content;
+    text-align: center;
+}
+
+table {
+    width: auto;
+}
+
+/* setting first column and first row to bold */
+table thead:first-child {
+    font-weight: bold;
+}
+
+table tbody tr td:first-child {
+    font-weight: bold;
+}
+
+/* "x" image, first item on fist row and first color */
+#tableImage {
+    width: 25px; /* Set the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#resetButton {
+    margin-top: 40px;
+}
+
+/* Media */
+
+/* forcing button set up */
+@media screen and (max-width: 1024px) {
+    .button {
+        font-weight: normal;
+        text-align: center;
+    }
+}
+
+/* adjust size of images */
+@media screen and (max-width: 700px) {
+    #title {
+        height: 38px;
+        width: auto;
+    }
+
+    #logo {
+        height: 145px;
+        width: auto;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    #title {
+        height: 34px;
+        width: auto;
+        margin-top: 10rem;
+    }
+
+    #logo {
+        height: 125px;
+        width: auto;
+        text-align: center;
+    }
+}
+/* end */
