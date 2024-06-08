@@ -78,7 +78,7 @@ function handleSubmit(event) {
     }
 
     // hide the messaged if the inputs are valid:
-    $('errorMessage').addClass('hidden');
+    $('#errorMessage').addClass('hidden');
 
     // document.getElementById('errorMessage').classList.add('hidden');
 
@@ -102,10 +102,11 @@ function handleSubmit(event) {
 
     // Fetch table and display content:
     $.ajax({
-        url: "table.html",
+        url: "table.html?cache=" + new Date().getTime(),
         method: "GET",
         dataType: "html",
         success: function(data) {
+            console.log("im here");
             $("#content").html(data);
             $("#formContainer").hide();
             generateTable();
@@ -173,7 +174,7 @@ function generateTable() {
     const headerRow = $("<tr></tr>").appendTo(thead);
     // instead of:
     // const headerRow = thead.insertRow();
-    const headerCell = $("<th></th>").appendTo(headerCell);
+    const headerCell = $("<th></th>").appendTo(headerRow);
     // instead of:
     //const headerCell = headerRow.insertCell();
     // X imafe on table:
@@ -213,7 +214,7 @@ function generateTable() {
         }
     }
 
-    $("#tableContent").empty().append(table);
+    $("#tableContent").append(table);
     // document.getElementById("tableContent").innerHTML = "";
     // document.getElementById("tableContent").appendChild(table);
 }
