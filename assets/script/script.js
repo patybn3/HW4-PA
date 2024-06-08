@@ -29,7 +29,7 @@
 
 // the form
 $(document).ready(function() {
-    $("#form").submit(function(event)) {
+    $("#form").submit(function(event) {
         handleSubmit(event)
     });
 });
@@ -143,9 +143,9 @@ function error(e) {
         // document.getElementById('errorMessage').style.opacity = '0';
 
         setTimeout(function() {
-            $("#erroMessage").css("display", "none");
+            $("#errorMessage").css("display", "none");
             $("#errorMessage").css("opacity", 1);
-            $("#errorMessage").addClass(".hidden");
+            $("#errorMessage").addClass("hidden");
             // document.getElementById('errorMessage').style.display = 'none';
             // document.getElementById('errorMessage').style.opacity = '1';
             // document.getElementById('errorMessage').classList.add('hidden');
