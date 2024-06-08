@@ -29,7 +29,7 @@
 
 // the form
 $(document).ready(function() {
-    $(form).submit(fucntion(event)) {
+    $("#form").submit(function(event)) {
         handleSubmit(event)
     });
 });
@@ -78,7 +78,7 @@ function handleSubmit(event) {
     }
 
     // hide the messaged if the inputs are valid:
-    $('errorMessage').addClass('.hidden');
+    $('errorMessage').addClass('hidden');
 
     // document.getElementById('errorMessage').classList.add('hidden');
 
@@ -126,31 +126,30 @@ function handleSubmit(event) {
 
 function error(e) {
     // error message
-    $("#errorMessage").text(e);
-    $("#errorMessage").removeClass(".hidden");
-    $("#errorMessage").css("display", "block");
-
+    $("#errorMessage").text(e).removeClass(".hidden").fadeIn();
+    // Instead of:
     // document.getElementById('errorMessage').innerText = e;
     // document.getElementById('errorMessage').classList.remove('hidden');
     // document.getElementById('errorMessage').style.display = 'block';
 
     // fade
-    setTimeout(function () {
-        $("#errorMessage").css("trasition", "opacity 1s")
-        $("#errorMessage").css("opacity", "0");
+    $("#errorMessage").delay(2000).fadeOut();
+//     setTimeout(function () {
+//         $("#errorMessage").css("trasition", "opacity 1s")
+//         $("#errorMessage").css("opacity", "0");
 
-        // document.getElementById('errorMessage').style.transition = 'opacity 1s';
-        // document.getElementById('errorMessage').style.opacity = '0';
+//         // document.getElementById('errorMessage').style.transition = 'opacity 1s';
+//         // document.getElementById('errorMessage').style.opacity = '0';
 
-        setTimeout(function() {
-            $("#erroMessage").css("display", "none");
-            $("#errorMessage").css("opacity", 1);
-            $("#errorMessage").addClass(".hidden");
-            // document.getElementById('errorMessage').style.display = 'none';
-            // document.getElementById('errorMessage').style.opacity = '1';
-            // document.getElementById('errorMessage').classList.add('hidden');
-        }, 1000);
-    }, 2000);
+//         setTimeout(function() {
+//             $("#erroMessage").css("display", "none");
+//             $("#errorMessage").css("opacity", 1);
+//             $("#errorMessage").addClass(".hidden");
+//             // document.getElementById('errorMessage').style.display = 'none';
+//             // document.getElementById('errorMessage').style.opacity = '1';
+//             // document.getElementById('errorMessage').classList.add('hidden');
+//         }, 1000);
+//     }, 2000);
 }
 
 function generateTable() {
@@ -161,11 +160,9 @@ function generateTable() {
     const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
 
     // create the table 
-    const table = $("<table></table>");
+    const table = $("<table></table>")addClass(".table table-bordered");
     // instead of:
     // const table = document.createElement("table");
-    table.addClass(".table", ".table-bordered");
-    // instead of:
     // table.classList.add("table", "table-bordered");
 
     const thead = $("<thead></thead>").appendTo(table);
@@ -188,10 +185,9 @@ function generateTable() {
 
     // to insert numbers
     for (let i = multiplicandFrom; i <= multiplicandTo; i++) {
-        const cell = $("<th></th>").appendTo(headerRow);
+        $("<th></th>").text(i).appendTo(headerRow);
         // instead of:
         // const cell = headerRow.insertCell();
-        cell.text(i);
         // cell.textContent = i;
     }
 
@@ -200,16 +196,14 @@ function generateTable() {
     for (let i = multiplierFrom; i <= multiplierTo; i++) {
         const row = $("<tr></tr>").appendTo(tbody);
         // const row = tbody.insertRow();
-        const cell = $("<td></td>").appendTo(row);
+        $("<td></td>").text(i).appendTo(row);
         // const cell = row.insertCell();
-        cell.text(i);
         // cell.textContent = i;
 
         // multi
         for (let j = multiplicandFrom; j <= multiplicandTo; j++) {
-            const cell = $("<td></td>").appendTo(row);
+            $("<td></td>").text(i * j).appendTo(row);
             //  const cell = row.insertCell();
-            cell.text(i * j);
             // cell.textContent = i * j;
         }
     }
