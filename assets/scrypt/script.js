@@ -18,7 +18,7 @@
  * descending order will impact the calculation. For that, we have a if statement in the code that checks if the number is smaller, and swap the numbers to the
  * desired order.
  * 
- * Range: 1 - 50
+ * Range: -50 - 50
  * 
  * Button 'Submit' generated the table as long as all values are entered and they are withing the required range
  * Button 'Reset' will go back to the initial screen to enter the values again and generate a new table
@@ -28,22 +28,33 @@
  */
 
 // the form
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('form').addEventListener('submit', function(event) {
-        // fucntion below
-        handleSubmit(event);
+$(document).ready(function() {
+    $(form).submit(fucntion(event)) {
+        handleSubmit(event)
     });
 });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('form').addEventListener('submit', function(event) {
+//         // fucntion below
+//         handleSubmit(event);
+//     });
+// });
 
 // fucntion that gets the values entered by the user using the form
 function handleSubmit(event) {
 
     event.preventDefault();
 
-    let multiplicandFrom = parseInt(document.getElementById("multiplicandFrom").value);
-    let multiplicandTo = parseInt(document.getElementById("multiplicandTo").value);
-    let multiplierFrom = parseInt(document.getElementById("multiplierFrom").value);
-    let multiplierTo = parseInt(document.getElementById("multiplierTo").value);
+    let multiplicandFrom = parseInt($("#multiplicandFrom").val());
+    let multiplicandTo = parseInt($("#multiplicandTo").val());
+    let multiplierFrom = parseInt($("#multiplierFrom").val());
+    let multiplierTo = parseInt($("#multiplierTo").val());
+
+    // let multiplicandFrom = parseInt(document.getElementById("multiplicandFrom").value);
+    // let multiplicandTo = parseInt(document.getElementById("multiplicandTo").value);
+    // let multiplierFrom = parseInt(document.getElementById("multiplierFrom").value);
+    // let multiplierTo = parseInt(document.getElementById("multiplierTo").value);
 
     // The range I selected is between -50 and 50 only - Table can handle any range, but I figure I should add this
     // in order to generate an error message
@@ -67,7 +78,9 @@ function handleSubmit(event) {
     }
 
     // hide the messaged if the inputs are valid:
-    document.getElementById('errorMessage').classList.add('hidden');
+    $('errorMessage').addClass('.hidden');
+
+    // document.getElementById('errorMessage').classList.add('hidden');
 
     /* here we wanna make sure the order of calculatiion goes in ascending order
        even if the user enters if in descending order.
@@ -81,36 +94,61 @@ function handleSubmit(event) {
     }
 
     // store the values
+    // jQuery uses the same code because localStorafe is a web API
     localStorage.setItem("multiplicandFrom", multiplicandFrom);
     localStorage.setItem("multiplicandTo", multiplicandTo);
     localStorage.setItem("multiplierFrom", multiplierFrom);
     localStorage.setItem("multiplierTo", multiplierTo);
 
     // Fetch table and display content:
-    fetch('table.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('content').innerHTML = data;
-        document.getElementById('formContainer').style.display = 'none';
-        generateTable();
-    });
+    $.ajax({
+        url: "table.html",
+        method: "GET",
+        dataType: "html"
+        sucess: function(data) {
+            $("#content").html(data);
+            $("#formContainer").hide();
+            generateTable();
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching table.html: ", error);
+        }
+    })
+
+    // fetch('table.html')
+    // .then(response => response.text())
+    // .then(data => {
+    //     document.getElementById('content').innerHTML = data;
+    //     document.getElementById('formContainer').style.display = 'none';
+    //     generateTable();
+    // });
 }
 
 function error(e) {
     // error message
-    document.getElementById('errorMessage').innerText = e;
-    document.getElementById('errorMessage').classList.remove('hidden');
-    document.getElementById('errorMessage').style.display = 'block';
+    $("#errorMessage").text(e);
+    $("#errorMessage").removeClass(".hidden");
+    $("#errorMessage").css("display", "block");
+
+    // document.getElementById('errorMessage').innerText = e;
+    // document.getElementById('errorMessage').classList.remove('hidden');
+    // document.getElementById('errorMessage').style.display = 'block';
 
     // fade
     setTimeout(function () {
-        document.getElementById('errorMessage').style.transition = 'opacity 1s';
-        document.getElementById('errorMessage').style.opacity = '0';
+        $("#errorMessage").css("trasition", "opacity 1s")
+        $("#errorMessage").css("opacity", "0");
+
+        // document.getElementById('errorMessage').style.transition = 'opacity 1s';
+        // document.getElementById('errorMessage').style.opacity = '0';
 
         setTimeout(function() {
-            document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.opacity = '1';
-            document.getElementById('errorMessage').classList.add('hidden');
+            $("#erroMessage").css("display", "none");
+            $("#errorMessage").css("opacity", 1);
+            $("#errorMessage").addClass(".hidden");
+            // document.getElementById('errorMessage').style.display = 'none';
+            // document.getElementById('errorMessage').style.opacity = '1';
+            // document.getElementById('errorMessage').classList.add('hidden');
         }, 1000);
     }, 2000);
 }
@@ -123,39 +161,62 @@ function generateTable() {
     const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
 
     // create the table 
-    const table = document.createElement("table");
-    table.classList.add("table", "table-bordered");
+    const table = $("<table></table>");
+    // instead of:
+    // const table = document.createElement("table");
+    table.addClass(".table", ".table-bordered");
+    // instead of:
+    // table.classList.add("table", "table-bordered");
 
-    const thead = table.createTHead();
-    const headerRow = thead.insertRow();
-    const headerCell = headerRow.insertCell();
+    const thead = $("<thead></thead>").appendTo(table);
+    // instead of:
+    // const thead = table.createTHead();
+    const headerRow = $("<tr></tr>").appendTo(thead);
+    // instead of:
+    // const headerRow = thead.insertRow();
+    const headerCell = $("<th></th>").appendTo(headerCell);
+    // instead of:
+    //const headerCell = headerRow.insertCell();
     // X imafe on table:
-    const img = document.createElement("img");
-    img.src = "media/tableX.png";
-    img.id = "tableImage";
-    headerCell.appendChild(img);
+    
+    const img = $("<img>").attr("src", "media/tableX.png").attr("id", "tableImage").appendTo(headerCell);
+    // instead of:
+    // const img = document.createElement("img");
+    // img.src = "media/tableX.png";
+    // img.id = "tableImage";
+    // headerCell.appendChild(img);
 
     // to insert numbers
     for (let i = multiplicandFrom; i <= multiplicandTo; i++) {
-        const cell = headerRow.insertCell();
-        cell.textContent = i;
+        const cell = $("<th></th>").appendTo(headerRow);
+        // instead of:
+        // const cell = headerRow.insertCell();
+        cell.text(i);
+        // cell.textContent = i;
     }
 
-    const tbody = table.createTBody();
+    const tbody = $("<tbody></tbody>").appendTo(table);
+    // const tbody = table.createTBody();
     for (let i = multiplierFrom; i <= multiplierTo; i++) {
-        const row = tbody.insertRow();
-        const cell = row.insertCell();
-        cell.textContent = i;
+        const row = $("<tr></tr>").appendTo(tbody);
+        // const row = tbody.insertRow();
+        const cell = $("<td></td>").appendTo(row);
+        // const cell = row.insertCell();
+        cell.text(i);
+        // cell.textContent = i;
 
         // multi
         for (let j = multiplicandFrom; j <= multiplicandTo; j++) {
-            const cell = row.insertCell();
-            cell.textContent = i * j;
+            const cell = $("<td></td>").appendTo(row);
+            //  const cell = row.insertCell();
+            cell.text(i * j);
+            // cell.textContent = i * j;
         }
     }
 
-    document.getElementById("tableContent").innerHTML = "";
-    document.getElementById("tableContent").appendChild(table);
+    $("#tableContent").empty().append(table);
+    // document.getElementById("tableContent").innerHTML = "";
+    // document.getElementById("tableContent").appendChild(table);
 }
 
 // reset button
