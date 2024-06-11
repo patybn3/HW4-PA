@@ -18,7 +18,7 @@ bootstrap form*/
 
 /* This is the div that holds the initial form */
 .container {
-    padding-top: 30px;
+    padding-top: 20px;
     font-weight: 600;
     color: rgb(25, 37, 112);
 }  
@@ -35,7 +35,7 @@ nav {
 /* image logo.png */
 #logo {
     height: 160px;
-    width: 439px;
+    width: auto;
 }
 
 /* the container that holds the title image title.png */
@@ -50,8 +50,9 @@ nav {
     margin-top: 13rem;
 }
 
+
 /* Bootstrap danger alert */
-#errorMessage {
+/* #errorMessage {
     position: absolute;
     top: 160px;
     left: 0;
@@ -66,11 +67,22 @@ nav {
 #errorMessage.hidden {
     opacity: 0;
     pointer-events: none;
+} */
+
+/* input.error {
+    border-color: red;
+}*/
+
+.errorMessage {
+    color: red;
+    font-weight: normal;
+    font-style: italic;
+    padding: 5px;
 }
 
 /* "Enter Rage" */
-h3 {
-    padding-bottom: 20px;
+h4 {
+    padding-bottom: 15px;
     text-decoration: underline;
 }
 
