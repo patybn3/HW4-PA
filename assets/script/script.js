@@ -29,8 +29,55 @@
 
 // the form
 $(document).ready(function() {
-    $("#form").submit(function(event) {
-        handleSubmit(event)
+    // $("#form").submit(function(event) {
+    //     handleSubmit(event)
+    // });
+    $("#form").validate({
+        errorClass: "errorMessage",
+        errorElement: "div",
+        rules: {
+            multiplicandFrom: {
+                required: true,
+                min: -50,
+                max: 50
+            },
+            multiplicandTo: {
+                required: true,
+                min: -50,
+                max: 50
+            },
+            multiplierFrom: {
+                required: true,
+                min: -50,
+                max: 50
+            },
+            multiplierTo: {
+                required: true,
+                min: -50,
+                max: 50
+            }
+        },
+        messages: {
+            multiplicandFrom: {
+                min: "Number must be at least -50.",
+                max: "Number must be the most 50."
+            },
+            multiplicandTo: {
+                min: "Number must be at least -50.",
+                max: "Number must be the most 50."
+            },
+            multiplierFrom: {
+                min: "Number must be at least -50.",
+                max: "Number must be the most 50."
+            },
+            multiplierTo: {
+                min: "Number must be at least -50.",
+                max: "Number must be the most 50."
+            }
+        },
+        submitHandler: function(form, event) {
+            handleSubmit(event);
+        }
     });
 });
 
@@ -58,27 +105,27 @@ function handleSubmit(event) {
 
     // The range I selected is between -50 and 50 only - Table can handle any range, but I figure I should add this
     // in order to generate an error message
-    if (multiplicandFrom < -50 || multiplicandFrom > 50 ||
-        multiplicandTo < -50 || multiplicandTo > 50 ||
-        multiplierFrom < -50 || multiplierFrom > 50 ||
-        multiplierTo < -50 || multiplierTo > 50) {
+    // if (multiplicandFrom < -50 || multiplicandFrom > 50 ||
+    //     multiplicandTo < -50 || multiplicandTo > 50 ||
+    //     multiplierFrom < -50 || multiplierFrom > 50 ||
+    //     multiplierTo < -50 || multiplierTo > 50) {
         
-        // error message function
-        error("Please Enter Numbers Between -50 and 50 Only.");
-        return;
-    }
+    //     // error message function
+    //     error("Please Enter Numbers Between -50 and 50 Only.");
+    //     return;
+    // }
 
     // if one or more fields are empty
-    if (isNaN(multiplicandFrom) || isNaN(multiplicandTo) ||
-        isNaN(multiplierFrom) || isNaN(multiplierTo)) {
+    // if (isNaN(multiplicandFrom) || isNaN(multiplicandTo) ||
+    //     isNaN(multiplierFrom) || isNaN(multiplierTo)) {
         
-        // error message function
-        error("Error. All fields must contain a number from -50 to 50.");
-        return;
-    }
+    //     // error message function
+    //     error("Error. All fields must contain a number from -50 to 50.");
+    //     return;
+    // }
 
     // hide the messaged if the inputs are valid:
-    $('#errorMessage').addClass('hidden');
+    // $('#errorMessage').addClass('hidden');
 
     // document.getElementById('errorMessage').classList.add('hidden');
 
@@ -106,7 +153,6 @@ function handleSubmit(event) {
         method: "GET",
         dataType: "html",
         success: function(data) {
-            console.log("im here");
             $("#content").html(data);
             $("#formContainer").hide();
             generateTable();
@@ -125,34 +171,34 @@ function handleSubmit(event) {
     // });
 }
 
-function error(e) {
-    // error message
-    $("#errorMessage").text(e);
-    $("#errorMessage").removeClass("hidden");
-    $("#errorMessage").css("display", "block");
-    // Instead of:
-    // document.getElementById('errorMessage').innerText = e;
-    // document.getElementById('errorMessage').classList.remove('hidden');
-    // document.getElementById('errorMessage').style.display = 'block';
+// function error(e) {
+//     // error message
+//     $("#errorMessage").text(e);
+//     $("#errorMessage").removeClass("hidden");
+//     $("#errorMessage").css("display", "block");
+//     // Instead of:
+//     // document.getElementById('errorMessage').innerText = e;
+//     // document.getElementById('errorMessage').classList.remove('hidden');
+//     // document.getElementById('errorMessage').style.display = 'block';
 
-    // fade
-    setTimeout(function () {
-        $("#errorMessage").css("trasition", "opacity 1s");
-        $("#errorMessage").css("opacity", "0");
+//     // fade
+//     setTimeout(function () {
+//         $("#errorMessage").css("trasition", "opacity 1s");
+//         $("#errorMessage").css("opacity", "0");
 
-        // document.getElementById('errorMessage').style.transition = 'opacity 1s';
-        // document.getElementById('errorMessage').style.opacity = '0';
+//         // document.getElementById('errorMessage').style.transition = 'opacity 1s';
+//         // document.getElementById('errorMessage').style.opacity = '0';
 
-        setTimeout(function() {
-            $("#errorMessage").css("display", "none");
-            $("#errorMessage").css("opacity", 1);
-            $("#errorMessage").addClass("hidden");
-            // document.getElementById('errorMessage').style.display = 'none';
-            // document.getElementById('errorMessage').style.opacity = '1';
-            // document.getElementById('errorMessage').classList.add('hidden');
-        }, 1000);
-    }, 2000);
-}
+//         setTimeout(function() {
+//             $("#errorMessage").css("display", "none");
+//             $("#errorMessage").css("opacity", 1);
+//             $("#errorMessage").addClass("hidden");
+//             // document.getElementById('errorMessage').style.display = 'none';
+//             // document.getElementById('errorMessage').style.opacity = '1';
+//             // document.getElementById('errorMessage').classList.add('hidden');
+//         }, 1000);
+//     }, 2000);
+// }
 
 function generateTable() {
     // get inputs from local storage:
