@@ -56,21 +56,25 @@
     <form class="row" id="form" method="get">
       <h4>Enter Ranges:</h4>
         <div class="mb-3 col-md-6">
-            <label for="multiplicandFrom" class="form-label">Multiplicand From:</label>
-            <input type="number" class="form-control" id="multiplicandFrom" name="multiplicandFrom" placeholder="Enter a Number From -50 to 50" required>
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="multiplicandTo" class="form-label">Multiplicand To:</label>
-            <input type="number" class="form-control" id="multiplicandTo" name="multiplicandTo" placeholder="Enter a Number From -50 to 50" required>
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="multiplierFrom" class="form-label">Multiplier From:</label>
-            <input type="number" class="form-control" id="multiplierFrom" name="multiplierFrom" placeholder="Enter a Number From -50 to 50" required>
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="multiplierTo" class="form-label">Multiplier To:</label>
-            <input type="number" class="mb-3 form-control" id="multiplierTo" placeholder="Enter a Number From -50 to 50" required>
-          </div>
+          <label for="multiplicandFrom" class="form-label">Multiplicand From:</label>
+          <input type="number" class="form-control" id="multiplicandFrom" name="multiplicandFrom" placeholder="Enter a Number From -50 to 50" required>
+          <div id="multiplicandFromSlider"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="multiplicandTo" class="form-label">Multiplicand To:</label>
+          <input type="number" class="form-control" id="multiplicandTo" name="multiplicandTo" placeholder="Enter a Number From -50 to 50" required>
+          <div id="multiplicandToSlider"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="multiplierFrom" class="form-label">Multiplier From:</label>
+          <input type="number" class="form-control" id="multiplierFrom" name="multiplierFrom" placeholder="Enter a Number From -50 to 50" required>
+          <div id="multiplierFromSlider"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="multiplierTo" class="form-label">Multiplier To:</label>
+          <input type="number" class="mb-3 form-control" id="multiplierTo" placeholder="Enter a Number From -50 to 50" required>
+          <div id="multiplierToSlider"></div>
+        </div>
           <div class="mb-6 d-grid gap-2 d-md-flex justify-content-md-end">
           <button type="submit" class="btn btn-warning col-md-2 button"><strong>Submit</strong></button>
         </div>
@@ -78,7 +82,14 @@
     </div>
 </div>
 <div id="content">
-  <!-- Content from the second HTML file will be loaded here -->
+  <!-- Reset button, takes user back to the form, placed on top of the table -->
+  <div class="d-grid col-6 col-md-4 col-lg-3 col-xl-2 mx-auto mb-3">
+    <button type="button" onclick="resetTable()" class="btn btn-warning" id="resetButton"><strong>Reset Table</strong></button>
+</div>
+<!-- table sapce "holder". Entries added with JS -->
+<div id="tableBox">
+    <div id="tableContent" class="table-responsive"></div>
+</div>
 </div>
 <footer>
     <p id="copyright">&copy; 2024 Patricia Antlitz  -  
