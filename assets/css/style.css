@@ -50,29 +50,7 @@ nav {
     margin-top: 13rem;
 }
 
-
-/* Bootstrap danger alert */
-/* #errorMessage {
-    position: absolute;
-    top: 160px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: auto;
-    z-index: 1;
-    opacity: 1;
-    transition: opscity 0.5s ease-out;
-}
-
-#errorMessage.hidden {
-    opacity: 0;
-    pointer-events: none;
-} */
-
-/* input.error {
-    border-color: red;
-}*/
-
+/* jQuery Validate danger alert */
 .errorMessage {
     color: red;
     font-weight: normal;
