@@ -75,8 +75,8 @@ $(document).ready(function() {
                 max: "Number must be the most 50."
             }
         },
-        submitHandler: function(form) {
-            handleSubmit();
+        submitHandler: function(form, event) {
+            handleSubmit(event);
         }
     });
 });
