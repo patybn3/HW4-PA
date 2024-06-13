@@ -55,7 +55,11 @@ nav {
     color: red;
     font-weight: normal;
     font-style: italic;
-    padding: 5px;
+    padding-top: 5px;
+}
+
+.slider {
+    margin-top: 5px;
 }
 
 /* "Enter Rage" */
@@ -71,9 +75,9 @@ h4 {
     margin-bottom: 100px;
 }
 
-div#formContainer .errorMessage {
+/* div#formContainer .errorMessage {
     margin: 0 !important;
-}
+} */
 
 footer {
     background-color: rgb(236, 64, 122);
@@ -94,7 +98,7 @@ footer {
     color: cyan;
 }
 
-/* table.html */
+/* table */
 
 /* div that holds the table */
 #tableBox {
@@ -109,10 +113,6 @@ footer {
 #tableContent {
     width: fit-content;
     text-align: center;
-}
-
-table {
-    width: auto;
 }
 
 /* setting first column and first row to bold */
