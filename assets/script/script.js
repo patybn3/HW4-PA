@@ -78,10 +78,39 @@ $(document).ready(function() {
     });
 });
 
+// since I deleted table.html, we will have to add a new muthod to handle the table.
+// jQuery UI Slider and Tab Wedges
+function sliderTab(sliderId, inputId) {
+    $(sliderId).slider({
+        min: - 50,
+        max: 50,
+        slide: function(event, ui) {
+            $(inputId).val(ui.value);
+            handleSubmit(event);
+        }
+    });
+
+    // update:
+    $(inputId).on("input", function(event) {
+        var value = parseInt($(this).val());
+        if (!isNaN(value)) {
+            $(sliderId).slider("value", value);
+            handleSubmit(event);
+        }
+    });
+
+    $(inputId).val($(sliderId).slider("value"));
+
+    sliderTab("#multiplicandFromSlider", "#multiplicandFrom");
+    sliderTab("#multiplicandToSlider", "#multiplicandTo");
+    sliderTab("#multiplierFromSlider", "#multiplierFrom");
+    sliderTab("#multiplicerToSlider", "#multiplierTo");
+};
+
 // function that gets the values entered by the user using the form
 function handleSubmit(event) {
 
-    event.preventDefault();
+    if (event) event.preventDefault();
 
     let multiplicandFrom = parseInt($("#multiplicandFrom").val());
     let multiplicandTo = parseInt($("#multiplicandTo").val());
@@ -103,32 +132,33 @@ function handleSubmit(event) {
     localStorage.setItem("multiplierFrom", multiplierFrom);
     localStorage.setItem("multiplierTo", multiplierTo);
 
+    generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo);
+
     // Fetch table and display content:
-    $.ajax({
-        url: "table.html?cache=" + new Date().getTime(),
-        method: "GET",
-        dataType: "html",
-        success: function(data) {
-            $("#content").html(data);
-            $("#formContainer").hide();
-            generateTable();
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching table.html: ", error);
-        }
-    })
+    // $.ajax({
+    //     url: "table.html?cache=" + new Date().getTime(),
+    //     method: "GET",
+    //     dataType: "html",
+    //     success: function(data) {
+    //         $("#content").html(data);
+    //         $("#formContainer").hide();
+    //         generateTable();
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error("Error fetching table.html: ", error);
+    //     }
+    // })
 }
 
-function generateTable() {
+function generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo) {
     // get inputs from local storage:
-    const multiplicandFrom = parseInt(localStorage.getItem("multiplicandFrom"));
-    const multiplicandTo = parseInt(localStorage.getItem("multiplicandTo"));
-    const multiplierFrom = parseInt(localStorage.getItem("multiplierFrom"));
-    const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
+    // const multiplicandFrom = parseInt(localStorage.getItem("multiplicandFrom"));
+    // const multiplicandTo = parseInt(localStorage.getItem("multiplicandTo"));
+    // const multiplierFrom = parseInt(localStorage.getItem("multiplierFrom"));
+    // const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
 
     // create the table 
-    const table = $("<table></table>");
-    table.addClass("table", "table-bordered");
+    const table = $("<table></table>").addClass("table", "table-bordered");
     const thead = $("<thead></thead>").appendTo(table);
     const headerRow = $("<tr></tr>").appendTo(thead);
     const headerCell = $("<th></th>").appendTo(headerRow);
