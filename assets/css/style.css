@@ -56,6 +56,11 @@ nav {
     font-weight: normal;
     font-style: italic;
     padding: 5px;
+    display: none;
+}
+
+.slider {
+    margin-top: 10px;
 }
 
 /* "Enter Rage" */

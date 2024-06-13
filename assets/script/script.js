@@ -76,36 +76,91 @@ $(document).ready(function() {
             handleSubmit(event);
         }
     });
-});
 
-// since I deleted table.html, we will have to add a new muthod to handle the table.
-// jQuery UI Slider and Tab Wedges
-function sliderTab(sliderId, inputId) {
-    $(sliderId).slider({
-        min: - 50,
+    // jQuery UI slider
+    $("#multiplicandFromSlider").slider({
+        min: -50,
         max: 50,
         slide: function(event, ui) {
-            $(inputId).val(ui.value);
-            handleSubmit(event);
+            $("#multiplicandFrom").val(ui.value);
         }
     });
 
-    // update:
-    $(inputId).on("input", function(event) {
-        var value = parseInt($(this).val());
-        if (!isNaN(value)) {
-            $(sliderId).slider("value", value);
-            handleSubmit(event);
+    $("#multiplicandToSlider").slider({
+        min: -50,
+        max: 50,
+        slide: function(event, ui) {
+            $("#multiplicandTo").val(ui.value);
         }
     });
 
-    $(inputId).val($(sliderId).slider("value"));
+    $("#multiplierFromSlider").slider({
+        min: -50,
+        max: 50,
+        slide: function(event, ui) {
+            $("#multiplierFrom").val(ui.value);
+        }
+    });
 
-    sliderTab("#multiplicandFromSlider", "#multiplicandFrom");
-    sliderTab("#multiplicandToSlider", "#multiplicandTo");
-    sliderTab("#multiplierFromSlider", "#multiplierFrom");
-    sliderTab("#multiplicerToSlider", "#multiplierTo");
-};
+    $("#multiplierToSlider").slider({
+        min: -50,
+        max: 50,
+        slide: function(event, ui) {
+            $("#multiplierTo").val(ui.value);
+        }
+    });
+
+    // update sliders
+
+    $(".multiplicand, .multiplier").on("input", function() {
+        const sliderId = `#${$(this).attr("id")}Slider`;
+        $(sliderId).slider("value", $(this).val());
+    });
+    
+    $("#multiplicandFrom").on("input", function() {
+        $("#multiplicandFromSlider").slider("value", $(this).val());
+    });
+
+    $("#multiplicandTo").on("input", function() {
+        $("#multiplicandToSlider").slider("value", $(this).val());
+    });
+
+    $("#multiplierFrom").on("input", function() {
+        $("#multiplierFromSlider").slider("value", $(this).val());
+    });
+
+    $("#multiplierTo").on("input", function() {
+        $("#multiplierToSlider").slider("value", $(this).val());
+    });
+
+    // show, hide
+    function toggleButton() {
+        // show reset button only if table is generated
+        if ($("#tableContent").children().length > 0) {
+            $("#resetButton").show();
+        }
+        else {
+            $("#resetButton").hide();
+        }
+    }
+
+    // implement jQuery UI tabbed interface
+    $("#form").submit(toggleButton);
+    $("#tabs").tabs();
+
+    // reset tables and form
+    $("#resetButton").click(function() {
+        $("#tableContent").empty();
+        $("#form")[0].reset();
+        $("#multiplicandFromSlider").slider("value", 0);
+        $("#multiplicandToSlider").slider("value", 0);
+        $("#multiplierFromSlider").slider("value", 0);
+        $("#multiplierToSlider").slider("value", 0);
+        $("#tabs").tabs("refresh");
+        $("#tabsContainer").hide();
+        toggleButton();
+    });
+});
 
 // function that gets the values entered by the user using the form
 function handleSubmit(event) {
@@ -150,15 +205,16 @@ function handleSubmit(event) {
     // })
 }
 
-function generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo) {
+function generateTable() {
     // get inputs from local storage:
-    // const multiplicandFrom = parseInt(localStorage.getItem("multiplicandFrom"));
-    // const multiplicandTo = parseInt(localStorage.getItem("multiplicandTo"));
-    // const multiplierFrom = parseInt(localStorage.getItem("multiplierFrom"));
-    // const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
+    const multiplicandFrom = parseInt(localStorage.getItem("multiplicandFrom"));
+    const multiplicandTo = parseInt(localStorage.getItem("multiplicandTo"));
+    const multiplierFrom = parseInt(localStorage.getItem("multiplierFrom"));
+    const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
 
     // create the table 
-    const table = $("<table></table>").addClass("table", "table-bordered");
+    const table = $("<table></table>");
+    table.addClass("table", "table-bordered");
     const thead = $("<thead></thead>").appendTo(table);
     const headerRow = $("<tr></tr>").appendTo(thead);
     const headerCell = $("<th></th>").appendTo(headerRow);
@@ -188,9 +244,3 @@ function generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multipl
     $("#tableContent").append(table);
 }
 
-// reset button
-function resetTable() {
-    localStorage.clear();
-    window.location.href = "index.html";
-}
-// end
