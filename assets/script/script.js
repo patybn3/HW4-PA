@@ -74,9 +74,30 @@ $(document).ready(function() {
         },
         submitHandler: function(form, event) {
             handleSubmit(event);
+            // reset button showing or not
+            toggleButton();
         }
     });
 
+    // call function that handles sliders
+    sliderScroll();
+});
+
+
+ // show, hide reset button
+ function toggleButton() {
+    // show reset button only if table is generated
+    if ($("#tableContent").children().length > 0) {
+        $("#resetButton").show();
+        $("#tableBox").show();
+    }
+    else {
+        $("#resetButton").hide();
+        $("#tableBox").hide();
+    }
+}
+
+function sliderScroll() {
     // jQuery UI slider
     $("#multiplicandFromSlider").slider({
         min: -50,
@@ -133,19 +154,8 @@ $(document).ready(function() {
         $("#multiplierToSlider").slider("value", $(this).val());
     });
 
-    // show, hide
-    function toggleButton() {
-        // show reset button only if table is generated
-        if ($("#tableContent").children().length > 0) {
-            $("#resetButton").show();
-        }
-        else {
-            $("#resetButton").hide();
-        }
-    }
-
     // implement jQuery UI tabbed interface
-    $("#form").submit(toggleButton);
+    $("#form").submit(toggleButton());
     $("#tabs").tabs();
 
     // reset tables and form
@@ -160,7 +170,8 @@ $(document).ready(function() {
         $("#tabsContainer").hide();
         toggleButton();
     });
-});
+}
+
 
 // function that gets the values entered by the user using the form
 function handleSubmit(event) {
@@ -188,21 +199,6 @@ function handleSubmit(event) {
     localStorage.setItem("multiplierTo", multiplierTo);
 
     generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo);
-
-    // Fetch table and display content:
-    // $.ajax({
-    //     url: "table.html?cache=" + new Date().getTime(),
-    //     method: "GET",
-    //     dataType: "html",
-    //     success: function(data) {
-    //         $("#content").html(data);
-    //         $("#formContainer").hide();
-    //         generateTable();
-    //     },
-    //     error: function(xhr, status, error) {
-    //         console.error("Error fetching table.html: ", error);
-    //     }
-    // })
 }
 
 function generateTable() {
