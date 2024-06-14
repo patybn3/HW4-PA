@@ -1,7 +1,7 @@
 /*
-Homework 3 GUI 1 - UML
+Homework 4 GUI 1 - UML
 author: Patricia Antlitz
-date: 2024-06-01
+date: 2024-06-09 to 13
 File: style.css
 
 Copyright (c) 2024 by Patricia Antlitz.
@@ -21,15 +21,17 @@ bootstrap form*/
     padding-top: 20px;
     font-weight: 600;
     color: rgb(25, 37, 112);
-}  
+}
 
 nav {
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Add a shadow */
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
+    z-index: 1000;
 }
 
 /* image logo.png */
@@ -69,7 +71,7 @@ h4 {
 .button {
     text-align: right;
     font-weight: bold;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 
 .slider {
@@ -83,11 +85,11 @@ footer {
     width: 100%;
     position: fixed;
     bottom: 0;
-  }
+}
 
 /* text on footer */
 #copyright {
-    margin-left: 30px; 
+    margin-left: 30px;
     color: antiquewhite;
 }
 
@@ -95,13 +97,11 @@ footer {
     color: cyan;
 }
 
-/* table.html */
+/* table */
 
 /* div that holds the table */
 #tableBox {
     display: none;
-    /* justify-content: center;
-    align-items: center; */
     padding-bottom: 100px;
     margin: 0 30px;
 }
@@ -137,12 +137,19 @@ table tbody tr td:first-child {
 
 /* "x" image, first item on fist row and first color */
 #tableImage {
-    width: 25px; /* Set the width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 25px;
+    /* Set the width as needed */
+    height: auto;
+    /* Maintain aspect ratio */
 }
 
 #resetButton {
-    margin: 10px 0;
+    margin-bottom: 20px;
+}
+
+/* add verticall lines */
+.vertical {
+    border: 1px solid lightgrey;
 }
 
 /* Media */

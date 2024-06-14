@@ -1,24 +1,26 @@
 /**
  * 
- * @assigment Homework 3 GUI 1 - UML
+ * @assigment Homework 4 GUI 1 - UML
  * Professor: Wenjin Zhou, UMass Lowell Computer Science, wenjin_zhou@uml.edu - Summer 1 2024
  * @file script.js
  * @description This script takes input from a form in index.html, multiply the range of multiplicands by the range of multipliers,
- * and put it on a table from table.html
+ * dinamically generate a table with the values given, and create tabs for each table generated
  * @version
- * @date 2024-06-01
+ * @date start 2024-06-09 - end 2024-06-13
  * @author Patricia Antlitz
+ * @version 2.23.0
  * 
  * Note: some styling present
  * 
- * Vanilla JavaScript
+ * jQuery JavaScript
+ * jQuery UI
  * 
  * @specs The entries of the form are in a range. A range of Multiplicands and then a range of multipliers. For the table to behave as expected, the user must enter
  * the numbers in ascending order. For example =  multiplicands row: Multiplicand From: 5, Multiplicand To: 10, the same for the multiplier row. Entering the numbers in 
  * descending order will impact the calculation. For that, we have a if statement in the code that checks if the number is smaller, and swap the numbers to the
  * desired order.
  * 
- * Range: -50 - 50
+ * Range: -50 to 50
  * 
  * Button 'Submit' generated the table as long as all values are entered and they are withing the required range
  * Button 'Reset' will go back to the initial screen to enter the values again and generate a new table
@@ -27,10 +29,11 @@
  * 
  */
 
+// GLOBAL
 let tabCounter = 2; // start tab counter for dynamic tabs
 
 // the form
-$(document).ready(function() {
+$(document).ready(function () {
 
     $("#form").validate({
         errorClass: "errorMessage",
@@ -75,7 +78,7 @@ $(document).ready(function() {
                 max: "Number must be the most 50."
             }
         },
-        submitHandler: function(form, event) {
+        submitHandler: function (form, event) {
             handleSubmit(event);
             // reset button showing or not
             toggleButton();
@@ -88,8 +91,8 @@ $(document).ready(function() {
     // initialize tabs
     $("#tabs").tabs();
 
-     // reset tables and form
-     $("#resetButton").click(function() {
+    // reset tables and form
+    $("#resetButton").click(function () {
         $("#tableContent").empty();
         $("#tabs ul").empty();
         $("#tabs .ui-tabs-panel").remove();
@@ -105,7 +108,7 @@ $(document).ready(function() {
     });
 
     // remove individual tabs with close icon:
-    $("#tabs").delegate("span.ui-icon-close", "click", function() {
+    $("#tabs").delegate("span.ui-icon-close", "click", function () {
         let panelId = $(this).closest("li").remove().attr("aria-controls");
         $("#" + panelId).remove();
         $("#tabs").tabs("refresh");
@@ -114,8 +117,8 @@ $(document).ready(function() {
 
 });
 
- // show, hide reset button
- function toggleButton() {
+// show, hide reset button
+function toggleButton() {
     // show reset button only if table is generated
     if ($("#tabs ul").children().length > 0) {
         $("#resetButton").show();
@@ -132,7 +135,7 @@ function sliderScroll() {
     $("#multiplicandFromSlider").slider({
         min: -50,
         max: 50,
-        slide: function(event, ui) {
+        slide: function (event, ui) {
             $("#multiplicandFrom").val(ui.value);
         }
     });
@@ -140,7 +143,7 @@ function sliderScroll() {
     $("#multiplicandToSlider").slider({
         min: -50,
         max: 50,
-        slide: function(event, ui) {
+        slide: function (event, ui) {
             $("#multiplicandTo").val(ui.value);
         }
     });
@@ -148,7 +151,7 @@ function sliderScroll() {
     $("#multiplierFromSlider").slider({
         min: -50,
         max: 50,
-        slide: function(event, ui) {
+        slide: function (event, ui) {
             $("#multiplierFrom").val(ui.value);
         }
     });
@@ -156,18 +159,17 @@ function sliderScroll() {
     $("#multiplierToSlider").slider({
         min: -50,
         max: 50,
-        slide: function(event, ui) {
+        slide: function (event, ui) {
             $("#multiplierTo").val(ui.value);
         }
     });
 
     // update sliders
-
-    $("#multiplicandFrom, #multiplierFrom, #multiplicandTo, #multiplierTo").on("input", function() {
+    $("#multiplicandFrom, #multiplierFrom, #multiplicandTo, #multiplierTo").on("input", function () {
         const sliderId = `#${$(this).attr("id")}Slider`;
         $(sliderId).slider("value", $(this).val());
     });
-    
+
     $("#form").submit(toggleButton());
 }
 
@@ -181,6 +183,7 @@ function handleSubmit(event) {
     let multiplierFrom = parseInt($("#multiplierFrom").val());
     let multiplierTo = parseInt($("#multiplierTo").val());
 
+    // swap orders if negative
     if (multiplicandFrom > multiplicandTo) {
         [multiplicandFrom, multiplicandTo] = [multiplicandTo, multiplicandFrom];
     }
@@ -197,11 +200,6 @@ function handleSubmit(event) {
     localStorage.setItem("multiplierTo", multiplierTo);
 
     addTab(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo);
-
-    // to scroll down to the table when clicking on submit
-    // $("html, body").animate({
-    //     scrollTop: $("#tabelBox").offset().top
-    // }, 1000);
 }
 
 function addTab(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo) {
@@ -239,34 +237,34 @@ function generateTable(tableSelector) {
     const multiplierTo = parseInt(localStorage.getItem("multiplierTo"));
 
     // create the table 
-    const table = $("<table></table>");
-    table.addClass("table", "table-bordered");
+    const table = $("<table></table>").addClass("table", "table-bordered");
     const thead = $("<thead></thead>").appendTo(table);
-    const headerRow = $("<tr></tr>").appendTo(thead);
-    const headerCell = $("<th></th>").appendTo(headerRow);
-    
-    const img = $("<img>").attr("src", "media/tableX.png").attr("id", "tableImage").appendTo(headerCell);
+    // class vertical will add vertical lines to the table
+    const headerRow = $("<tr></tr>").appendTo(thead).addClass("vertical");
+    const headerCell = $("<th></th>").appendTo(headerRow).addClass("vertical");
+
+    const img = $("<img>").attr("src", "media/tableX.png").attr("id", "tableImage").appendTo(headerCell).addClass("vertical");
 
     // to insert numbers
     for (let i = multiplicandFrom; i <= multiplicandTo; i++) {
-        const cell = $("<th></th>").appendTo(headerRow);
+        const cell = $("<th></th>").appendTo(headerRow).addClass("vertical");
         cell.text(i);
     }
 
     const tbody = $("<tbody></tbody>").appendTo(table);
 
     for (let i = multiplierFrom; i <= multiplierTo; i++) {
-        const row = $("<tr></tr>").appendTo(tbody);
-        const cell = $("<td></td>").appendTo(row);
+        const row = $("<tr></tr>").appendTo(tbody).addClass("vertical");
+        const cell = $("<td></td>").appendTo(row).addClass("vertical");
         cell.text(i);
 
         // multi
         for (let j = multiplicandFrom; j <= multiplicandTo; j++) {
-            const cell = $("<td></td>").appendTo(row);
+            const cell = $("<td></td>").appendTo(row).addClass("vertical");
             cell.text(i * j);
         }
     }
 
     $(tableSelector).append(table);
 }
-
+// end
