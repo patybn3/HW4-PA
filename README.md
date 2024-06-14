@@ -1,42 +1,44 @@
-# Homework 3 - Graphical User Interface 1
-## UML, Professor Zhou, Computer Science
-## Student: Patricia Antlitz
-## Date: 06/01/2024
-## url: https://patybn3.github.io/HW_3_PA_GUI1/
+## Homework 4 - Graphical User Interface 1
+### UML, Professor Zhou, Computer Science
+### Student: Patricia Antlitz
+### Date: 06/12/2024
+### url: https://patybn3.github.io/HW4-PA/
 
 ## Assignment:
 
-For this assignment you will create a table completely dynamically based on parameters entered
-in an HTML form. First, you must create a form that accepts the starting and ending numbers for
-both the horizontal (multiplier) and vertical (multiplicand) axes of a multiplication
-table. Second, you will use the numbers entered into the form to create a multiplication table
-completely dynamically. What you will create is commonly called a “single page web app” (or
-application).
+This is a continuationg of assignment number 3 that can be found at:
+https://github.com/patybn3/HW_3_PA_GUI1
 
-Here’s what a reasonable multiplication table looks like.
+Refer to Homework 3 README above to learn more about version 1.-.- of this code.
 
-<img width="281" alt="Screenshot 2024-06-03 at 2 16 52 PM" src="https://github.com/patybn3/HW_3_PA_GUI1/assets/59259041/fa4a5402-802b-42a8-b9e7-b513b78d80fc">
+In this assignment we must modify the current code to perform the following tasks:
 
-Note that the numbers that go along the side of the table and those that go along the top (the
-multiplier and the multiplicand) are arbitrary. The point of this assignment is for you to create a
-program that can display the table given any arbitrary starting and ending numbers for the
-multiplier and multiplicand. The human factors part of this assignment is that there are many
-interesting things that can happen when users enter the four numbers.
+Step 1:
 
-Some MINIMAL requirements:
-[x] The program should be able to handle at least numbers between -50 to 50. This
-means the program should generate the correct result on the web within 1-2
-minute. <br>
-[x] Any unexpected input from the user should be handled gracefully (validation with
-javascript and proper useful error message should be displayed; NO POPUP
-windows) <br>
-[x] Page should NOT rendered unresponsive when a large number is given as an
-input. This should be error handled and prevented. <br>
-[x] The generated table should be nicely formatted; The table should be placed in a
-scrollable container, two headers (top row and first column fixed). <br>
-[x] The table should still display in a reasonable way when it is bigger than the screen
-size. <br>
+  Implement jQuery, instead of Vanilla Javascript
 
+Step 2:
+
+  Change the form submition in order to use jQuery.validate();
+  catch the errors using validate
+
+Step 3:
+
+  Use jQuery UI Slider to add sliders in addition to the input fields. You must be able to enter the numbers manually and by using the slider:
+
+  "a. Add jQuery UI sliders for each of your text input fields. Manipulating a slider should change the value in the corresponding text input field dynamically. That is, moving the slider should instantly change the text input field value. Likewise, typing into the text input field should change the value indicated by the slider.
+  Note: This is known as “two-way binding” between two form fields or two widgets, which is often accomplished using other JavaScript libraries such as AngularJS. But for this assignment, you are to implement the two-way binding yourself. In addition, your table should update dynamically when either the slider is changed or a new text value is entered." 
+
+Step 4:
+
+  Add tabs to hold the tables:
+
+  b. The second major modification is to implement a jQuery UI tabbed interface. Each time you create a new table, display it in a new tab and label that tab with the four parameters used to create it. Thus, you should have a single tab in which you enter parameters, and individual tabs for each table that gets generated. Think about how you want to implement this on your page, as you may not want to have the tabs in the standard location or format.
+
+Step 5:
+
+  Provide a way to delete individual tabs and then provide a way to delete multiple tabs at the same time. This will take a little thinking to decide the best design for implementing this functionality. You might put the deletion controls on your data entry page, or you might put them on a separate “layout editing” page. There are many valid ways to do this. The ultimate design decision is up to you.
+ 
 ## File hierarchy
 
 HW3/
