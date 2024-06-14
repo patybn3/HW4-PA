@@ -62,28 +62,9 @@ HW3/
 -- readme file
 
 
-[x] W3C CSS Validation Service: http://jigsaw.w3.org/css-validator
+[passed] W3C CSS Validation Service: http://jigsaw.w3.org/css-validator
 
-[x] HTML5 Markup Validation Service: http://validator.w3.org -----> one <strong>ERROR</strong>:
-
-The error below is not quite an error. This empty div is holding the space for the table under table.html:
-
-```html
-<div id="content">
-  <!-- Content from the second HTML file will be loaded here -->
-</div>
-```
-<img width="931" alt="Screenshot 2024-06-03 at 2 14 15 PM" src="https://github.com/patybn3/HW_3_PA_GUI1/assets/59259041/ce5324a8-590e-4b3b-925a-a5ab0e51fc76">
-
-
----
-
-## Wireframe
-
-<img width="1440" alt="Screenshot 2024-06-03 at 12 18 06 PM" src="https://github.com/patybn3/HW_3_PA_GUI1/assets/59259041/87c833e0-5757-4e0e-b14f-e41a446aff61">
-
-<img width="1435" alt="Screenshot 2024-06-03 at 12 19 08 PM" src="https://github.com/patybn3/HW_3_PA_GUI1/assets/59259041/4333cf1c-897d-456f-b1d0-d18f1148bb93">
-
+[passed] HTML5 Markup Validation Service: http://validator.w3.org
 
 ---
 
@@ -99,51 +80,10 @@ Suitable for all mobile and desktop devices
 
 ---
 
-### Plan:
+### Notes:
 
-Create Logo, favicon, title image on canva
-
-Style navbar - white w/ shadow
-
-Style page
-
-Add form
-
-Add bottom
-
-Add footer
-
-Step 2:
-
-Form fields accept numbers only
-
-when submit, table appear, the table is not on the screen originally
-
-the table needs to resize as it grows to always fit on the page
-
-set a threshold of max/min numbers
-
-error message for character and numbers above threshold
-
-reset bottom to clear page
-
-table on separate html
-
-JS:
-
-on click trigger calculation and show secondary html
-
-multiply multiplicant x multiplier, from and to # given, incremented by 1:
-
-Multiplier from: 5, to: 8
-
-then its 5, 6, 7, 8 on the table
-
-use bootstrap table
-
-logic:
-
-get table fields, increment while placing the numbers
+table.html removed, table was integrated into index.html directly.
+The page is no longer directed to "another page", both the form and the table is on the same page.
 
 ### RUN
 
@@ -154,14 +94,11 @@ to run the source code, open the html file on your browser, or run the command `
 - HTML5
 - CSS 5
 - JavaScript
+- jQuery
+- jQuery.validate()
+- jQuery UI
 - Bootstrap
 
-### Issues:
-
-- bug:
--- table generating when all fields are empty
-- separate alert into a different function to reuse it
-validate code
 
 ### Sources:
 
@@ -182,3 +119,10 @@ https://www.w3schools.com/html/html5_video.asp
 
 w3Schools CSS:
 https://www.w3schools.com/css/css_navbar_horizontal.asp
+
+jQuery User Interface:
+https://api.jqueryui.com/tabs/#method-widget
+
+Justin Nguyen's github (example for tabs):
+https://github.com/justintimeforlunch/gui-programming/blob/gh-pages/js/assignment8%20copy.js
+
