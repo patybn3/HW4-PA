@@ -8,8 +8,8 @@
  * @version
  * @date start 2024-06-09 - end 2024-06-13
  * @author Patricia Antlitz
- * @version 2.23.0
- * 
+ * @version 2.4.26
+ *
  * Note: some styling present
  * 
  * jQuery JavaScript
@@ -243,7 +243,7 @@ function generateTable(tableSelector) {
     const headerRow = $("<tr></tr>").appendTo(thead).addClass("vertical");
     const headerCell = $("<th></th>").appendTo(headerRow).addClass("vertical");
 
-    const img = $("<img>").attr("src", "media/tableX.png").attr("id", "tableImage").appendTo(headerCell).addClass("vertical");
+    const img = $("<img>").attr("src", "media/tableX.png").attr("id", "tableImage").appendTo(headerCell);
 
     // to insert numbers
     for (let i = multiplicandFrom; i <= multiplicandTo; i++) {
