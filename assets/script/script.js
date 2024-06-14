@@ -27,8 +27,11 @@
  * 
  */
 
+let tabCounter = 2; // start tab counter for dynamic tabs
+
 // the form
 $(document).ready(function() {
+
     $("#form").validate({
         errorClass: "errorMessage",
         errorElement: "div",
@@ -81,13 +84,40 @@ $(document).ready(function() {
 
     // call function that handles sliders
     sliderScroll();
-});
 
+    // initialize tabs
+    $("#tabs").tabs();
+
+     // reset tables and form
+     $("#resetButton").click(function() {
+        $("#tableContent").empty();
+        $("#tabs ul").empty();
+        $("#tabs .ui-tabs-panel").remove();
+        $("#form")[0].reset();
+        $("#multiplicandFromSlider").slider("value", 0);
+        $("#multiplicandToSlider").slider("value", 0);
+        $("#multiplierFromSlider").slider("value", 0);
+        $("#multiplierToSlider").slider("value", 0);
+        //$("#tabs").tabs("refresh");
+        tabCount = 2;
+        $("#tabsBox").hide();
+        toggleButton();
+    });
+
+    // remove individual tabs with close icon:
+    $("#tabs").delegate("span.ui-icon-close", "click", function() {
+        let panelId = $(this).closest("li").remove().attr("aria-controls");
+        $("#" + panelId).remove();
+        $("#tabs").tabs("refresh");
+        toggleButton();
+    });
+
+});
 
  // show, hide reset button
  function toggleButton() {
     // show reset button only if table is generated
-    if ($("#tableContent").children().length > 0) {
+    if ($("#tabs ul").children().length > 0) {
         $("#resetButton").show();
         $("#tableBox").show();
     }
@@ -133,49 +163,17 @@ function sliderScroll() {
 
     // update sliders
 
-    $(".multiplicand, .multiplier").on("input", function() {
+    $("#multiplicandFrom, #multiplierFrom, #multiplicandTo, #multiplierTo").on("input", function() {
         const sliderId = `#${$(this).attr("id")}Slider`;
         $(sliderId).slider("value", $(this).val());
     });
     
-    $("#multiplicandFrom").on("input", function() {
-        $("#multiplicandFromSlider").slider("value", $(this).val());
-    });
-
-    $("#multiplicandTo").on("input", function() {
-        $("#multiplicandToSlider").slider("value", $(this).val());
-    });
-
-    $("#multiplierFrom").on("input", function() {
-        $("#multiplierFromSlider").slider("value", $(this).val());
-    });
-
-    $("#multiplierTo").on("input", function() {
-        $("#multiplierToSlider").slider("value", $(this).val());
-    });
-
-    // implement jQuery UI tabbed interface
     $("#form").submit(toggleButton());
-    $("#tabs").tabs();
-
-    // reset tables and form
-    $("#resetButton").click(function() {
-        $("#tableContent").empty();
-        $("#form")[0].reset();
-        $("#multiplicandFromSlider").slider("value", 0);
-        $("#multiplicandToSlider").slider("value", 0);
-        $("#multiplierFromSlider").slider("value", 0);
-        $("#multiplierToSlider").slider("value", 0);
-        $("#tabs").tabs("refresh");
-        $("#tabsContainer").hide();
-        toggleButton();
-    });
 }
 
 
 // function that gets the values entered by the user using the form
 function handleSubmit(event) {
-
     if (event) event.preventDefault();
 
     let multiplicandFrom = parseInt($("#multiplicandFrom").val());
@@ -198,10 +196,42 @@ function handleSubmit(event) {
     localStorage.setItem("multiplierFrom", multiplierFrom);
     localStorage.setItem("multiplierTo", multiplierTo);
 
-    generateTable(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo);
+    addTab(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo);
+
+    // to scroll down to the table when clicking on submit
+    // $("html, body").animate({
+    //     scrollTop: $("#tabelBox").offset().top
+    // }, 1000);
 }
 
-function generateTable() {
+function addTab(multiplicandFrom, multiplicandTo, multiplierFrom, multiplierTo) {
+    // Get tab template and prepare new tab ID
+    let tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
+    let label = `(${multiplicandFrom} x ${multiplicandTo}) by (${multiplierFrom} x ${multiplierTo})`;
+    let id = `tabs-${tabCounter}`;
+
+    // Add new tab header
+    let li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
+    $("#tabs ul").append(li);
+
+    // Add new tab content with generated table
+    let tabContent = `<div id='${id}'><div id='table${tabCounter}'></div></div>`;
+    $("#tabs").append(tabContent);
+
+    // Generate table and add to the new tab
+    generateTable(`#table${tabCounter}`);
+
+    // Refresh tabs to show the new one
+    $("#tabs").tabs("refresh");
+
+    // Increment tab counter for next tab
+    tabCounter++;
+
+    // activate tab immediately
+    $("#tabs").tabs("option", "active", -1);
+}
+
+function generateTable(tableSelector) {
     // get inputs from local storage:
     const multiplicandFrom = parseInt(localStorage.getItem("multiplicandFrom"));
     const multiplicandTo = parseInt(localStorage.getItem("multiplicandTo"));
@@ -237,6 +267,6 @@ function generateTable() {
         }
     }
 
-    $("#tableContent").append(table);
+    $(tableSelector).append(table);
 }
 

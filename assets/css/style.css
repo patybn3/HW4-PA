@@ -50,16 +50,13 @@ nav {
     margin-top: 13rem;
 }
 
-/* jQuery Validate danger alert */
+
+/* jQuery ui danger alert */
 .errorMessage {
     color: red;
     font-weight: normal;
     font-style: italic;
-    padding-top: 5px;
-}
-
-.slider {
-    margin-top: 5px;
+    padding: 5px;
 }
 
 /* "Enter Rage" */
@@ -75,9 +72,9 @@ h4 {
     margin-bottom: 100px;
 }
 
-/* div#formContainer .errorMessage {
-    margin: 0 !important;
-} */
+.slider {
+    margin-top: 5px;
+}
 
 footer {
     background-color: rgb(236, 64, 122);
@@ -98,21 +95,35 @@ footer {
     color: cyan;
 }
 
-/* table */
+/* table.html */
 
 /* div that holds the table */
 #tableBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
+    /* justify-content: center;
+    align-items: center; */
     padding-bottom: 100px;
     margin: 0 30px;
 }
 
+#tabs .ui-tabs-panel {
+    overflow-x: auto;
+}
+
 /* will make sure the columns and rows will adjust based on the size of the content */
 #tableContent {
-    width: fit-content;
+    width: auto;
     text-align: center;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: auto;
+    max-width: 100%;
 }
 
 /* setting first column and first row to bold */
@@ -131,7 +142,7 @@ table tbody tr td:first-child {
 }
 
 #resetButton {
-    margin-top: 40px;
+    margin: 10px 0;
 }
 
 /* Media */
