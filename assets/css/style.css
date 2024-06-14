@@ -1,7 +1,7 @@
 /*
-Homework 3 GUI 1 - UML
+Homework 4 GUI 1 - UML
 author: Patricia Antlitz
-date: 2024-06-01
+date: 2024-06-09 to 13
 File: style.css
 
 Copyright (c) 2024 by Patricia Antlitz.
@@ -21,15 +21,17 @@ bootstrap form*/
     padding-top: 20px;
     font-weight: 600;
     color: rgb(25, 37, 112);
-}  
+}
 
 nav {
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Add a shadow */
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
+    z-index: 1000;
 }
 
 /* image logo.png */
@@ -50,16 +52,13 @@ nav {
     margin-top: 13rem;
 }
 
-/* jQuery Validate danger alert */
+
+/* jQuery ui danger alert */
 .errorMessage {
     color: red;
     font-weight: normal;
     font-style: italic;
-    padding-top: 5px;
-}
-
-.slider {
-    margin-top: 5px;
+    padding: 5px;
 }
 
 /* "Enter Rage" */
@@ -72,12 +71,12 @@ h4 {
 .button {
     text-align: right;
     font-weight: bold;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 
-/* div#formContainer .errorMessage {
-    margin: 0 !important;
-} */
+.slider {
+    margin-top: 5px;
+}
 
 footer {
     background-color: rgb(236, 64, 122);
@@ -86,11 +85,11 @@ footer {
     width: 100%;
     position: fixed;
     bottom: 0;
-  }
+}
 
 /* text on footer */
 #copyright {
-    margin-left: 30px; 
+    margin-left: 30px;
     color: antiquewhite;
 }
 
@@ -102,17 +101,29 @@ footer {
 
 /* div that holds the table */
 #tableBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
     padding-bottom: 100px;
     margin: 0 30px;
 }
 
+#tabs .ui-tabs-panel {
+    overflow-x: auto;
+}
+
 /* will make sure the columns and rows will adjust based on the size of the content */
 #tableContent {
-    width: fit-content;
+    width: auto;
     text-align: center;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: auto;
+    max-width: 100%;
 }
 
 /* setting first column and first row to bold */
@@ -126,12 +137,19 @@ table tbody tr td:first-child {
 
 /* "x" image, first item on fist row and first color */
 #tableImage {
-    width: 25px; /* Set the width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 25px;
+    /* Set the width as needed */
+    height: auto;
+    /* Maintain aspect ratio */
 }
 
 #resetButton {
-    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* add verticall lines */
+.vertical {
+    border: 1px solid lightgrey;
 }
 
 /* Media */
